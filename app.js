@@ -23,3 +23,17 @@ db.exec('CREATE PROPERTY Book.title IF NOT EXISTS STRING');
 db.exec('CREATE PROPERTY Book.author IF NOT EXISTS STRING');
 db.exec('CREATE PROPERTY Book.year IF NOT EXISTS STRING');
 
+app.set('view engine', 'ejs');
+
+
+app.get('/',async (req, res) => {
+    const sql = 'SELECT FROM Book';
+    const result = await db.query(sql);
+    res.render('index', { books: result });
+});
+
+
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
