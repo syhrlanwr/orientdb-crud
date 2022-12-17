@@ -16,4 +16,10 @@ const db = server.use({
     password: 'admin'
 });
 
-console.log('Using database:', db.name);
+db.exec('CREATE CLASS Book IF NOT EXISTS EXTENDS V');
+
+db.exec('CREATE PROPERTY Book.id IF NOT EXISTS INTEGER (MANDATORY TRUE)');
+db.exec('CREATE PROPERTY Book.title IF NOT EXISTS STRING');
+db.exec('CREATE PROPERTY Book.author IF NOT EXISTS STRING');
+db.exec('CREATE PROPERTY Book.year IF NOT EXISTS STRING');
+
