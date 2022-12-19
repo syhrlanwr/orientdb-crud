@@ -36,6 +36,20 @@ app.get('/add', (req, res) => {
     res.render('add-book');
 });
 
+app.post('/add', async (req, res) => {
+    const { title, author, year } = req.body;
+    const sql = 'INSERT INTO Book (id, title, author, year) VALUES (:id, :title, :author, :year)';
+    const idquery = 'SELECT MAX(id) FROM Book';
+    const id = await db.query(idquery).then((result) => {
+        if (result[0]['MAX'] == null) {
+            return 1;
+        }
+        return result[0]['MAX'] + 1;
+    });
+    const result = await db.query(sql, { params: { id, title, author, year } });
+    res.redirect('/');
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
