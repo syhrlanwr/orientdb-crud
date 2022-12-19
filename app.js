@@ -56,6 +56,14 @@ app.get('/edit/:id', async (req, res) => {
   res.render('edit-book', { book: result[0] });
 });
 
+app.post('/edit/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, author, year } = req.body;
+  const sql = 'UPDATE Book SET title = :title, author = :author, year = :year WHERE id = :id';
+  const result = await db.query(sql, { params: { id, title, author, year } });
+  res.redirect('/');
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
