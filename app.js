@@ -32,7 +32,9 @@ app.get('/',async (req, res) => {
     res.render('index', { books: result });
 });
 
-
+app.get('/add', (req, res) => {
+    res.render('add-book');
+});
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
