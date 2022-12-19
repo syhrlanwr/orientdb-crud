@@ -64,6 +64,13 @@ app.post('/edit/:id', async (req, res) => {
   res.redirect('/');
 });
 
+app.get('/delete/:id', async (req, res) => {
+  const { id } = req.params;
+  const sql = 'DELETE VERTEX FROM Book WHERE id = :id';
+  const result = await db.query(sql, { params: { id } });
+  res.redirect('/');
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
